@@ -16,23 +16,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import {
-  Loader2,
-  AlertCircle,
-  Monitor,
-  Smartphone,
-} from "lucide-react";
+import { Loader2, AlertCircle, Monitor, Smartphone } from "lucide-react";
+import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { isDescriptionSeoFriendly, isTitleSeoFriendly } from "@/lib/helper";
+import ToolTipComponent from "./ToolTipComponent";
 
 const formSchema = z.object({
   url: z.string().url({ message: "Invalid URL" }),
 });
 
 type FormValues = z.infer<typeof formSchema>;
-
-const SEO_LIMITS = {
-  title: { min: 50, max: 60 }, // Optimal SEO title character limits
-  description: { min: 120, max: 160 }, // Optimal SEO description character limits
-};
 
 export default function OnePageCheck() {
   const [title, setTitle] = useState("");
@@ -46,13 +40,6 @@ export default function OnePageCheck() {
       url: "",
     },
   });
-
-  const isTitleSeoFriendly =
-    title.length >= SEO_LIMITS.title.min &&
-    title.length <= SEO_LIMITS.title.max;
-  const isDescriptionSeoFriendly =
-    description.length >= SEO_LIMITS.description.min &&
-    description.length <= SEO_LIMITS.description.max;
 
   async function onSubmit(values: FormValues) {
     try {
@@ -73,7 +60,7 @@ export default function OnePageCheck() {
   }
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
+    <Card className="w-full max-w-5xl mx-auto">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">One Page Check</CardTitle>
         <CardDescription>
@@ -115,31 +102,51 @@ export default function OnePageCheck() {
             <div className="space-y-2">
               <h3 className="text-lg font-semibold">Title</h3>
               <p className="text-muted-foreground">
-                {title || "No title found"}
+                {title ? (
+                  <Input
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                ) : (
+                  "No title found"
+                )}
               </p>
-              <p>
-                Characters: {title.length}{" "}
-                {!isTitleSeoFriendly && (
-                  <>
-                    <Monitor className="inline-block text-red-500 ml-2" />
-                    <Smartphone className="inline-block text-red-500 ml-1" />
-                  </>
+              <p className="flex gap-2 items-center">
+                Characters: {title ? title.length : 0}
+                {!isTitleSeoFriendly(title) ? (
+                  <ToolTipComponent text="Title is not SEO friendly">
+                    <Smartphone className="inline-block text-red-500 ml-1 " />
+                  </ToolTipComponent>
+                ) : (
+                  <ToolTipComponent text="Title is SEO friendly">
+                    <Smartphone className="inline-block text-green-500 ml-1" />
+                  </ToolTipComponent>
                 )}
               </p>
             </div>
             <div className="space-y-2">
               <h3 className="text-lg font-semibold">Description</h3>
               <p className="text-muted-foreground">
-                {description || "No description found"}
+                {description ? (
+                  <Textarea
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
+                ) : (
+                  "No description found"
+                )}
               </p>
-              <p>
-                Characters: {description.length}{" "}
-                {!isDescriptionSeoFriendly && (
-                  <>
-                    <Monitor className="inline-block text-red-500 ml-2" />
+              <p className="flex gap-2 items-center">
+                Characters: {description ? description.length : 0}
+                {!isDescriptionSeoFriendly(description) ? (
+                  <ToolTipComponent text="Description is not SEO friendly">
                     <Smartphone className="inline-block text-red-500 ml-1" />
-                  </>
-                )} 
+                  </ToolTipComponent>
+                ) : (
+                  <ToolTipComponent text="Title is SEO friendly">
+                    <Smartphone className="inline-block text-green-500 ml-1" />
+                  </ToolTipComponent>
+                )}
               </p>
             </div>
           </div>

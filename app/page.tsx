@@ -7,16 +7,16 @@ export default async function Home() {
     <>
       <Tabs
         defaultValue="onePage"
-        className="flex flex-col justify-center items-center mt-32"
+        className="flex flex-col justify-center items-center mt-32 "
       >
         <TabsList>
           <TabsTrigger value="onePage">One Page Check</TabsTrigger>
           <TabsTrigger value="bulk">Bulk Check</TabsTrigger>
         </TabsList>
-        <TabsContent value="onePage">
+        <TabsContent value="onePage" className="w-full max-w-3xl mx-auto">
           <OnePageCheck />
         </TabsContent>
-        <TabsContent value="bulk">
+        <TabsContent value="bulk" className="w-full max-w-6xl mx-auto">
           <BulkCheck/>
         </TabsContent>
       </Tabs>

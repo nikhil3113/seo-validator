@@ -27,25 +27,23 @@ export async function POST(req: NextRequest) {
           if (!response.ok) {
             return {
               url,
-              title: "No title found",
-              description: "No description found",
+              title: "",
+              description: "",
             };
           }
 
           const html = await response.text();
           const $ = cheerio.load(html);
 
-          const title = $("title").text() || "No title found";
-          const description =
-            $('meta[name="description"]').attr("content") ||
-            "No description found";
+          const title = $("title").text();
+          const description = $('meta[property="og:description"]').attr("content") || $('meta[name="description"]').attr("content");
 
           return { url, title, description };
         } catch {
           return {
             url,
-            title: "No title found",
-            description: "No description found",
+            title:"",
+            description:"",
           };
         }
       })
