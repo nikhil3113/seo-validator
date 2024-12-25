@@ -13,7 +13,7 @@ export default async function Home() {
           <TabsTrigger value="onePage">One Page Check</TabsTrigger>
           <TabsTrigger value="bulk">Bulk Check</TabsTrigger>
         </TabsList>
-        <TabsContent value="onePage" className="w-full max-w-3xl mx-auto">
+        <TabsContent value="onePage" className="w-full max-w-6xl mx-auto">
           <OnePageCheck />
         </TabsContent>
         <TabsContent value="bulk" className="w-full max-w-6xl mx-auto">

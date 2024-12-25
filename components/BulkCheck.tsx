@@ -17,10 +17,12 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { isDescriptionSeoFriendly } from "@/lib/helper";
-import { Monitor, Smartphone } from "lucide-react";
+import { calculateOverallSeoPercentage, isDescriptionSeoFriendly } from "@/lib/helper";
+import { Smartphone } from "lucide-react";
 import ToolTipComponent from "./ToolTipComponent";
 import { Input } from "./ui/input";
+import { Textarea } from "./ui/textarea";
+import { RadialChart } from "./RadialChart";
 
 const getTitleAndDescriptionBulk = async (urls: string[]) => {
   try {
@@ -158,7 +160,7 @@ export default function BulkCheck() {
                     </TableCell>
                     <TableCell>
                       {res.description ? (
-                        <Input
+                        <Textarea
                           value={res.description}
                           onChange={(e) => {
                             const newDesc = e.target.value;
@@ -190,6 +192,9 @@ export default function BulkCheck() {
                           )}
                         </div>
                       </div>
+                    </TableCell>
+                    <TableCell>
+                      <RadialChart seoPercentage={calculateOverallSeoPercentage(res.title, res.description)} showFooter={false} showHeader={false} sizeConfig={true} />
                     </TableCell>
                   </TableRow>
                 ))}
