@@ -39,4 +39,4 @@ export const isTitleSeoFriendly = (title: string) =>{
   const overallPercentage = Math.round((titlePercentage + descriptionPercentage) / 2);
 
   return overallPercentage;
-};
+};  

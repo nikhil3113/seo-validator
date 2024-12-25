@@ -17,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { calculateOverallSeoPercentage, isDescriptionSeoFriendly } from "@/lib/helper";
+import { calculateOverallSeoPercentage, isDescriptionSeoFriendly, isTitleSeoFriendly } from "@/lib/helper";
 import { Smartphone } from "lucide-react";
 import ToolTipComponent from "./ToolTipComponent";
 import { Input } from "./ui/input";
@@ -146,7 +146,7 @@ export default function BulkCheck() {
                       <div className="flex justify-center items-center gap-2">
                         {res.title.length}
                         <div>
-                          {!isDescriptionSeoFriendly(res.title) ? (
+                          {!isTitleSeoFriendly(res.title) ? (
                             <ToolTipComponent text="Title is not SEO friendly">
                               <Smartphone className="inline-block text-red-500 ml-1" />
                             </ToolTipComponent>
