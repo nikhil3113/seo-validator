@@ -17,8 +17,13 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
-import { calculateOverallSeoPercentage, isDescriptionSeoFriendly, isTitleSeoFriendly } from "@/lib/helper";
-import { Smartphone } from "lucide-react";
+import {
+  calculateOverallSeoPercentage,
+  isDescriptionSeoFriendly,
+  isTitleSeoFriendly,
+  SEO_LIMITS,
+} from "@/lib/helper";
+import { TicketCheck, TicketX } from "lucide-react";
 import ToolTipComponent from "./ToolTipComponent";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
@@ -84,6 +89,9 @@ export default function BulkCheck() {
     }
   }
 
+  const recommendedTitleLength = SEO_LIMITS.title;
+  const recommendedDescriptionLength = SEO_LIMITS.description;
+
   return (
     <div className="flex flex-col items-center gap-4 w-full max-w-6xl mx-auto  p-5 rounded-md">
       <h1 className="text-2xl font-bold">Bulk URL Metadata Checker</h1>
@@ -104,6 +112,7 @@ export default function BulkCheck() {
           </Button>
         </form>
       </Form>
+      {results.length > 0 && 
       <div className="mt-4 w-full ">
         <h2 className="text-xl font-semibold">Results</h2>
         <Table>
@@ -147,12 +156,21 @@ export default function BulkCheck() {
                         {res.title.length}
                         <div>
                           {!isTitleSeoFriendly(res.title) ? (
-                            <ToolTipComponent text="Title is not SEO friendly">
-                              <Smartphone className="inline-block text-red-500 ml-1" />
-                            </ToolTipComponent>
+                            <>
+                              {res.title &&
+                              res.title.length > recommendedTitleLength.max ? (
+                                <ToolTipComponent text="Title Character limit exceeded">
+                                  <TicketX className="inline-block text-red-500 ml-1" />
+                                </ToolTipComponent>
+                              ) : (
+                                <ToolTipComponent text="Title Cahanracter limit not met">
+                                  <TicketX className="inline-block text-red-500 ml-1" />
+                                </ToolTipComponent>
+                              )}
+                            </>
                           ) : (
                             <ToolTipComponent text="Title is SEO friendly">
-                              <Smartphone className="inline-block text-green-500 ml-1" />
+                              <TicketCheck className="inline-block text-green-500 ml-1" />
                             </ToolTipComponent>
                           )}
                         </div>
@@ -182,19 +200,37 @@ export default function BulkCheck() {
                         {res.description ? res.description.length : 0}
                         <div>
                           {!isDescriptionSeoFriendly(res.description) ? (
-                            <ToolTipComponent text="Title is not SEO friendly">
-                              <Smartphone className="inline-block text-red-500 ml-1" />
-                            </ToolTipComponent>
+                            <>
+                              {res.description &&
+                              res.description.length >
+                                recommendedDescriptionLength.max ? (
+                                <ToolTipComponent text="Description Character limit exceeded">
+                                  <TicketX className="inline-block text-red-500 ml-1" />
+                                </ToolTipComponent>
+                              ) : (
+                                <ToolTipComponent text="Description Character limit not met">
+                                  <TicketX className="inline-block text-red-500 ml-1" />
+                                </ToolTipComponent>
+                              )}
+                            </>
                           ) : (
-                            <ToolTipComponent text="Title is SEO friendly">
-                              <Smartphone className="inline-block text-green-500 ml-1" />
+                            <ToolTipComponent text="Description is SEO friendly">
+                              <TicketCheck className="inline-block text-green-500 ml-1" />
                             </ToolTipComponent>
                           )}
                         </div>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <RadialChart seoPercentage={calculateOverallSeoPercentage(res.title, res.description)} showFooter={false} showHeader={false} sizeConfig={true} />
+                      <RadialChart
+                        seoPercentage={calculateOverallSeoPercentage(
+                          res.title,
+                          res.description
+                        )}
+                        showFooter={false}
+                        showHeader={false}
+                        sizeConfig={true}
+                      />
                     </TableCell>
                   </TableRow>
                 ))}
@@ -207,6 +243,7 @@ export default function BulkCheck() {
           </TableBody>
         </Table>
       </div>
+      }
     </div>
   );
 }

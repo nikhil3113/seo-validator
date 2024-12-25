@@ -16,13 +16,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Loader2, AlertCircle, Smartphone } from "lucide-react";
+import { Loader2, AlertCircle, TicketCheck, TicketX } from "lucide-react";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import {
   calculateOverallSeoPercentage,
   isDescriptionSeoFriendly,
   isTitleSeoFriendly,
+  SEO_LIMITS,
 } from "@/lib/helper";
 import ToolTipComponent from "./ToolTipComponent";
 import { RadialChart } from "./RadialChart";
@@ -65,6 +66,8 @@ export default function OnePageCheck() {
   }
 
   const seopercentage = calculateOverallSeoPercentage(title, description);
+  const recommendedTitleLength = SEO_LIMITS.title;
+  const recommendedDescriptionLength = SEO_LIMITS.description;
 
   return (
     <div className="flex">
@@ -123,12 +126,20 @@ export default function OnePageCheck() {
                   <p className="flex gap-2 items-center">
                     Characters: {title ? title.length : 0}
                     {!isTitleSeoFriendly(title) ? (
-                      <ToolTipComponent text="Title is not SEO friendly">
-                        <Smartphone className="inline-block text-red-500 ml-1 " />
-                      </ToolTipComponent>
+                      <>
+                        {title && title.length > recommendedTitleLength.max ? (
+                          <ToolTipComponent text="Title character is greater than Recommended limit">
+                            <TicketX className="inline-block text-red-500 ml-1 " />
+                          </ToolTipComponent>
+                        ) : (
+                          <ToolTipComponent text="Title character is less than Recommended limit">
+                            <TicketX className="inline-block text-red-500 ml-1 " />
+                          </ToolTipComponent>
+                        )}
+                      </>
                     ) : (
                       <ToolTipComponent text="Title is SEO friendly">
-                        <Smartphone className="inline-block text-green-500 ml-1" />
+                        <TicketCheck className="inline-block text-green-500 ml-1" />
                       </ToolTipComponent>
                     )}
                   </p>
@@ -146,14 +157,24 @@ export default function OnePageCheck() {
                     )}
                   </p>
                   <p className="flex gap-2 items-center">
-                    Characters: {description ? description.length : 0}
+                    Characters: {description ? description.length : ""}
                     {!isDescriptionSeoFriendly(description) ? (
-                      <ToolTipComponent text="Description is not SEO friendly">
-                        <Smartphone className="inline-block text-red-500 ml-1" />
-                      </ToolTipComponent>
+                      <>
+                        {description &&
+                        description.length >
+                          recommendedDescriptionLength.max ? (
+                          <ToolTipComponent text="Description character is greater than Recommended limit">
+                            <TicketX className="inline-block text-red-500 ml-1" />
+                          </ToolTipComponent>
+                        ) : (
+                          <ToolTipComponent text="Description character is less than Recommended limit">
+                            <TicketX className="inline-block text-red-500 ml-1" />
+                          </ToolTipComponent>
+                        )}
+                      </>
                     ) : (
                       <ToolTipComponent text="Title is SEO friendly">
-                        <Smartphone className="inline-block text-green-500 ml-1" />
+                        <TicketCheck className="inline-block text-green-500 ml-1" />
                       </ToolTipComponent>
                     )}
                   </p>
@@ -163,10 +184,7 @@ export default function OnePageCheck() {
           )}
         </CardContent>
       </Card>
-      <div>
-        
-        <RadialChart seoPercentage={seopercentage} />
-      </div>
+      <div>{title && <RadialChart seoPercentage={seopercentage} />}</div>
     </div>
   );
 }

@@ -7,9 +7,9 @@ export default async function Home() {
     <>
       <Tabs
         defaultValue="onePage"
-        className="flex flex-col justify-center items-center mt-32 "
+        className="flex flex-col justify-center items-center mt-20 "
       >
-        <TabsList>
+        <TabsList className="mb-10">
           <TabsTrigger value="onePage">One Page Check</TabsTrigger>
           <TabsTrigger value="bulk">Bulk Check</TabsTrigger>
         </TabsList>
