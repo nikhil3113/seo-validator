@@ -1,7 +1,15 @@
 "use client";
 
+interface OnePageCheckProps {
+  generativeAi: (
+    titleAI: string,
+    descriptionAI: string,
+    keywordAI?: string
+  ) => Promise<string>;
+}
+
 import { useState } from "react";
-import { z } from "zod";
+import {  z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -30,15 +38,17 @@ import { RadialChart } from "./RadialChart";
 
 const formSchema = z.object({
   url: z.string().url({ message: "Invalid URL" }),
+  keyword: z.string().optional(),
 });
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function OnePageCheck() {
+export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [result, setResult] = useState("");
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -69,6 +79,20 @@ export default function OnePageCheck() {
   const recommendedTitleLength = SEO_LIMITS.title;
   const recommendedDescriptionLength = SEO_LIMITS.description;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const handleGenerate = async (values: FormValues) => {
+
+    try {
+      console.log(values);
+      const keyword = values.keyword;
+      const result = await generativeAi(title, description, keyword);
+      console.log("Generated Content:", result);
+      setResult(result);
+    } catch (error) {
+      console.error("Error generating content:", error);
+    }
+  };
+
   return (
     <div className="flex">
       <Card className="w-full max-w-3xl mx-auto">
@@ -86,6 +110,12 @@ export default function OnePageCheck() {
                 control={form.control}
                 label="Enter URL"
                 placeholder="https://example.com"
+              />
+              <FormFields
+                name="keyword"
+                control={form.control}
+                label="Enter Keyword"
+                placeholder="Keyword"
               />
               <Button type="submit" disabled={loading} className="w-full">
                 {loading ? (
@@ -178,6 +208,19 @@ export default function OnePageCheck() {
                       </ToolTipComponent>
                     )}
                   </p>
+                </div>
+                <div>
+                  {/* <Button onClick={form.handleSubmit(handleGenerate)} className="my-6">
+                    Generate Meta Data
+                  </Button> */}
+                  {result && (
+                    <div>
+                      <h3 className="text-lg font-semibold">
+                        Generated Content
+                      </h3>
+                      <p className="text-muted-foreground">{result}</p>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
