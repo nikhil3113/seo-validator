@@ -30,6 +30,7 @@ import { calculateOverallSeoPercentage } from "@/lib/helper";
 
 import { RadialChart } from "./RadialChart";
 import OnePageResult from "./OnePageResult";
+import Link from "next/link";
 
 const formSchema = z.object({
   url: z.string().url({ message: "Invalid URL" }),
@@ -49,6 +50,7 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       url: "",
+      keyword: "",
     },
   });
 
@@ -70,7 +72,13 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
     }
   }
 
-  const seopercentage = calculateOverallSeoPercentage(title, description);
+  const seopercentage = form.getValues().keyword
+    ? calculateOverallSeoPercentage(
+        title,
+        description,
+        form.getValues().keyword
+      )
+    : calculateOverallSeoPercentage(title, description);
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleGenerate = async (values: FormValues) => {
@@ -86,7 +94,7 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col lg:flex-row">
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">One Page Check</CardTitle>
@@ -107,7 +115,7 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
                 name="keyword"
                 control={form.control}
                 label="Enter Keyword"
-                placeholder="Keyword"
+                placeholder="Keyword (Optional)"
               />
               <Button type="submit" disabled={loading} className="w-full">
                 {loading ? (
@@ -136,7 +144,14 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
             result={result}
             setTitle={setTitle}
             setDescription={setDescription}
+            keyword={form.getValues().keyword}
           />
+
+          <div className="mt-5">
+            <Link href={"/manual"} className="text-blue-500 hover:underline">
+              Don&apos;t Have an URL? Click here to check manually
+            </Link>
+          </div>
         </CardContent>
       </Card>
       <div>{title && <RadialChart seoPercentage={seopercentage} />}</div>

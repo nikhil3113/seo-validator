@@ -8,7 +8,7 @@ export default async function Home() {
     <>
       <Tabs
         defaultValue="onePage"
-        className="flex flex-col justify-center items-center mt-20 "
+        className="flex flex-col justify-center items-center lg:mt-20 mt-10"
       >
         <TabsList className="mb-10">
           <TabsTrigger value="onePage">One Page Check</TabsTrigger>

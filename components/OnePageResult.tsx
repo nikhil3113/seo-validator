@@ -1,12 +1,14 @@
 import React from "react";
 import {
   isDescriptionSeoFriendly,
+  isKeywordDescriptionOptimal,
+  isKeywordTitleOptimal,
   isTitleSeoFriendly,
   SEO_LIMITS,
 } from "../lib/helper";
 
 import ToolTipComponent from "./ToolTipComponent";
-import { TicketCheck, TicketX } from "lucide-react";
+import { Keyboard, TicketCheck, TicketX } from "lucide-react";
 
 interface OnePageResultProps {
   title: string;
@@ -14,6 +16,7 @@ interface OnePageResultProps {
   result?: string;
   setTitle?: (title: string) => void;
   setDescription?: (description: string) => void;
+  keyword?: string | undefined;
   showForm?: boolean;
 }
 
@@ -23,10 +26,12 @@ export default function OnePageResult({
   result,
   setTitle,
   setDescription,
-  showForm = false
+  keyword,
+  showForm = false,
 }: OnePageResultProps) {
   const recommendedTitleLength = SEO_LIMITS.title;
   const recommendedDescriptionLength = SEO_LIMITS.description;
+
   return (
     <div>
       {(title || description || showForm) && (
@@ -38,6 +43,7 @@ export default function OnePageResult({
                 {title || showForm ? (
                   <input
                     value={title}
+                    placeholder="Enter Title"
                     onChange={(e) => setTitle && setTitle(e.target.value)}
                     className="w-full p-2 rounded-lg border"
                   />
@@ -64,6 +70,21 @@ export default function OnePageResult({
                     <TicketCheck className="inline-block text-green-500 ml-1" />
                   </ToolTipComponent>
                 )}
+                {keyword ? (
+                  !isKeywordTitleOptimal(title, keyword) ? (
+                    <>
+                      <ToolTipComponent text="Recommended to add  1 - 2 keywords in title">
+                        <Keyboard className="inline-block text-red-500 ml-1 " />
+                      </ToolTipComponent>
+                    </>
+                  ) : (
+                    <ToolTipComponent text="Keyword is optimal in title">
+                      <Keyboard  className="inline-block text-green-500 ml-1" />
+                    </ToolTipComponent>
+                  )
+                ) : (
+                  ""
+                )}
               </p>
             </div>
             <div className="space-y-2">
@@ -72,7 +93,10 @@ export default function OnePageResult({
                 {description || showForm ? (
                   <textarea
                     value={description}
-                    onChange={(e) => setDescription && setDescription(e.target.value)}
+                    placeholder="Enter Description"
+                    onChange={(e) =>
+                      setDescription && setDescription(e.target.value)
+                    }
                     className="w-full p-2 rounded-lg border"
                   />
                 ) : (
@@ -95,9 +119,24 @@ export default function OnePageResult({
                     )}
                   </>
                 ) : (
-                  <ToolTipComponent text="Title is SEO friendly">
+                  <ToolTipComponent text="Description is SEO friendly">
                     <TicketCheck className="inline-block text-green-500 ml-1" />
                   </ToolTipComponent>
+                )}
+                {keyword ? (
+                  !isKeywordDescriptionOptimal(description, keyword) ? (
+                    <>
+                      <ToolTipComponent text="Recommended to add  1 - 3 keywords in Description">
+                        <Keyboard className="inline-block text-red-500 ml-1 " />
+                      </ToolTipComponent>
+                    </>
+                  ) : (
+                    <ToolTipComponent text="Keyword is optimal in Description">
+                      <Keyboard className="inline-block text-green-500 ml-1" />
+                    </ToolTipComponent>
+                  )
+                ) : (
+                  ""
                 )}
               </p>
             </div>

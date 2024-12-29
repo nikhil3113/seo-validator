@@ -163,7 +163,7 @@ export default function BulkCheck() {
                                   <TicketX className="inline-block text-red-500 ml-1" />
                                 </ToolTipComponent>
                               ) : (
-                                <ToolTipComponent text="Title Cahanracter limit not met">
+                                <ToolTipComponent text="Title Character limit not met">
                                   <TicketX className="inline-block text-red-500 ml-1" />
                                 </ToolTipComponent>
                               )}

@@ -22,7 +22,7 @@ export default function Page() {
   const seopercentage = calculateOverallSeoPercentage(title, description);
 
   return (
-    <div className="flex gap-5 justify-center items- mt-10 mb-5">
+    <div className="flex gap-5 justify-center items- mt-20 mb-5">
       <Card className="w-full max-w-3xl ">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">
