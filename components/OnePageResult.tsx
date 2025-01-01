@@ -9,6 +9,7 @@ import {
 
 import ToolTipComponent from "./ToolTipComponent";
 import { Keyboard, TicketCheck, TicketX } from "lucide-react";
+import { Button } from "./ui/button";
 
 interface OnePageResultProps {
   title: string;
@@ -18,6 +19,9 @@ interface OnePageResultProps {
   setDescription?: (description: string) => void;
   keyword?: string | undefined;
   showForm?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  handleGenerate?: (values: any) => Promise<void>;
+  aiContentLoading?: boolean;
 }
 
 export default function OnePageResult({
@@ -28,6 +32,8 @@ export default function OnePageResult({
   setDescription,
   keyword,
   showForm = false,
+  handleGenerate,
+  aiContentLoading,
 }: OnePageResultProps) {
   const recommendedTitleLength = SEO_LIMITS.title;
   const recommendedDescriptionLength = SEO_LIMITS.description;
@@ -79,7 +85,7 @@ export default function OnePageResult({
                     </>
                   ) : (
                     <ToolTipComponent text="Keyword is optimal in title">
-                      <Keyboard  className="inline-block text-green-500 ml-1" />
+                      <Keyboard className="inline-block text-green-500 ml-1" />
                     </ToolTipComponent>
                   )
                 ) : (
@@ -140,14 +146,44 @@ export default function OnePageResult({
                 )}
               </p>
             </div>
-            <div>
-              {/* <Button onClick={form.handleSubmit(handleGenerate)} className="my-6">
-                    Generate Meta Data
-                  </Button> */}
+            <div className="mt-6 space-y-4">
+              <Button
+                onClick={handleGenerate}
+                disabled={aiContentLoading}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+              >
+                {aiContentLoading ? "Generating..." : " Generate Meta Data"}
+              </Button>
+
               {result && (
-                <div>
-                  <h3 className="text-lg font-semibold">Generated Content</h3>
-                  <p className="text-muted-foreground">{result}</p>
+                <div className="p-4 bg-gray-100 border rounded-lg space-y-4">
+                  <h3 className="text-xl font-bold text-blue-600">
+                    Generated Content
+                  </h3>
+                  <div className="space-y-2 text-sm">
+                    <p>
+                      <span className="font-semibold text-gray-700">
+                        Title:
+                      </span>
+                    </p>
+                    <p className="text-gray-900">
+                      {result
+                        .split("**Description:**")[0]
+                        .replace("**Title:**", "")
+                        .trim()}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-gray-700">
+                        Description:
+                      </span>
+                    </p>
+                    <p className="text-gray-900">
+                      {result.split("**Description:**")[1]?.trim()}
+                    </p>
+                  </div>
+                  <p className="text-xs text-gray-500 italic">
+                    The above content is AI generated.
+                  </p>
                 </div>
               )}
             </div>

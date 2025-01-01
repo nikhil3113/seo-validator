@@ -7,10 +7,10 @@ export default function Appbar() {
         <h2 className="text-xl text-blue-500 font-semibold">Seo Validator</h2>
       </Link>
       <div className="flex gap-5 ">
-        <Link href="/manual">
+        <Link href="/manual-check">
           <h2 className="cursor-pointer">Manually</h2>
         </Link>
-        <Link href="/">
+        <Link href="/url-check">
           <h2 className="cursor-pointer">URL</h2>
         </Link>
       </div>

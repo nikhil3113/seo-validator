@@ -9,7 +9,7 @@ interface OnePageCheckProps {
 }
 
 import { useState } from "react";
-import { z } from "zod";
+import {  z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -43,6 +43,7 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [loading, setLoading] = useState(false);
+  const[aiContentLoading, setAiContentLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState("");
 
@@ -83,13 +84,15 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleGenerate = async (values: FormValues) => {
     try {
-      console.log(values);
+      setAiContentLoading(true);
       const keyword = values.keyword;
       const result = await generativeAi(title, description, keyword);
       console.log("Generated Content:", result);
       setResult(result);
+      setAiContentLoading(false);
     } catch (error) {
       console.error("Error generating content:", error);
+      setAiContentLoading(false);
     }
   };
 
@@ -145,10 +148,12 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
             setTitle={setTitle}
             setDescription={setDescription}
             keyword={form.getValues().keyword}
+            handleGenerate={handleGenerate}
+            aiContentLoading={aiContentLoading}
           />
 
           <div className="mt-5">
-            <Link href={"/manual"} className="text-blue-500 hover:underline">
+            <Link href={"/manual"} className="text-blue-500 hover:underline text-[16px]">
               Don&apos;t Have an URL? Click here to check manually
             </Link>
           </div>
