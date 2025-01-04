@@ -1,6 +1,15 @@
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import { NEXT_AUTH } from "@/lib/auth";
+import UserMenu from "./UserMenu";
 
-export default function Appbar() {
+async function getUser() {
+  const session = await getServerSession(NEXT_AUTH);
+  return session;
+}
+
+export default async function Appbar() {
+  const session = await getUser();
   return (
     <div className="flex justify-between p-5 shadow-sm">
       <Link href="/">
@@ -13,6 +22,7 @@ export default function Appbar() {
         <Link href="/url-check">
           <h2 className="cursor-pointer">URL</h2>
         </Link>
+        <UserMenu session={session}/>
       </div>
     </div>
   );
