@@ -18,6 +18,7 @@ interface OnePageResultProps {
   setTitle?: (title: string) => void;
   setDescription?: (description: string) => void;
   keyword?: string | undefined;
+  setKeyword?: (keyword: string) => void;
   showForm?: boolean;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleGenerate?: (values: any) => Promise<void>;

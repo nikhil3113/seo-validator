@@ -1,6 +1,6 @@
 export const SEO_LIMITS = {
   title: { min: 50, max: 60 }, // Optimal SEO title character limits
-  description: { min: 120, max: 160 }, // Optimal SEO description character limits
+  description: { min: 150, max: 160 }, // Optimal SEO description character limits
 };
 
 export const isTitleSeoFriendly = (title: string) => {
