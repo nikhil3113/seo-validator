@@ -112,3 +112,8 @@ Contributions are welcome! Please follow these steps:
 
 ---
 
+## Future Scope
+Token based model
+
+---
+
