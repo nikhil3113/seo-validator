@@ -4,6 +4,7 @@ import "./globals.css";
 import Appbar from "@/components/Appbar";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Providers } from "./providers";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,8 +33,15 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Appbar />
-        <Providers>{children}</Providers>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <Appbar />
+          <Providers>{children}</Providers>
+        </ThemeProvider>
       </body>
       <GoogleAnalytics gaId="G-ZWBNL0KTC0" />
     </html>

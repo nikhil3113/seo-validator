@@ -55,7 +55,7 @@ export default function Page() {
             <div className="space-y-4">
               <div>
                 <label>
-                  <span className="text-lg font-semibold">Title</span>
+                  <span className="text-lg font-semibold">Keyword</span>
                   <input
                     value={keyword}
                     placeholder="Enter Keyword (Optional)"

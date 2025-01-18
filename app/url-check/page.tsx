@@ -15,13 +15,12 @@ export default async function Page() {
           <TabsTrigger value="bulk">Bulk Check</TabsTrigger>
         </TabsList>
         <TabsContent value="onePage" className="w-full max-w-6xl mx-auto">
-          <OnePageCheck generativeAi={generativeAi}/>
+          <OnePageCheck generativeAi={generativeAi} />
         </TabsContent>
         <TabsContent value="bulk" className="w-full max-w-6xl mx-auto">
-          <BulkCheck/>
+          <BulkCheck />
         </TabsContent>
       </Tabs>
-      ;
     </>
   );
 }

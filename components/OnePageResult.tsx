@@ -58,7 +58,7 @@ export default function OnePageResult({
                   "No title found"
                 )}
               </p>
-              <p className="flex gap-2 items-center w-full">
+              <div className="flex gap-2 items-center w-full">
                 Characters: {title ? title.length : 0}
                 {!isTitleSeoFriendly(title) ? (
                   <>
@@ -92,7 +92,7 @@ export default function OnePageResult({
                 ) : (
                   ""
                 )}
-              </p>
+              </div>
             </div>
             <div className="space-y-2">
               <h3 className="text-lg font-semibold">Description</h3>
@@ -110,7 +110,7 @@ export default function OnePageResult({
                   "No description found"
                 )}
               </p>
-              <p className="flex gap-2 items-center">
+              <div className="flex gap-2 items-center">
                 Characters: {description ? description.length : ""}
                 {!isDescriptionSeoFriendly(description) ? (
                   <>
@@ -145,7 +145,7 @@ export default function OnePageResult({
                 ) : (
                   ""
                 )}
-              </p>
+              </div>
             </div>
             <div className="mt-6 space-y-4">
               <Button

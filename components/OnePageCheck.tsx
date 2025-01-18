@@ -98,7 +98,7 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
 
   return (
     <div className="flex flex-col lg:flex-row">
-      <Card className="w-full max-w-3xl mx-auto">
+      <Card className="w-full max-w-3xl mx-auto ">
         <CardHeader>
           <CardTitle className="text-2xl font-bold">One Page Check</CardTitle>
           <CardDescription>
