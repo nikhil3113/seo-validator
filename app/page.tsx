@@ -87,7 +87,7 @@ export default function Home() {
                   webmasters and SEO professionals managing large websites or
                   multiple clients.
                 </p>
-                <Link href="/bulk-check" passHref>
+                <Link href="/url-check" passHref>
                   <Button size="lg" className="group mt-3">
                     Bulk URL Check
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
