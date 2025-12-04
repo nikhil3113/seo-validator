@@ -57,6 +57,7 @@ Respond in this exact format (use **Title:** and **Description:** with bold mark
 **Title:** [your optimized title]
 **Description:** [your optimized description]`;
 
+
   const result = await model.generateContent(prompt);
   const text = await result.response.text();
   console.log("Generated Content:", text);
