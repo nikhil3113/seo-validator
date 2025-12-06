@@ -34,12 +34,15 @@ export const isKeywordTitleOptimal = (title: string, keyword: string) => {
   return keywordCount >= min && keywordCount <= max;
 };
 
-
-export const isKeywordDescriptionOptimal = (description: string, keyword:string) => {
+export const isKeywordDescriptionOptimal = (
+  description: string,
+  keyword: string
+) => {
   if (!description || !keyword) return false;
 
-  const keywordCount = (description.match(new RegExp(`\\b${keyword}\\b`, "gi")) || [])
-    .length;
+  const keywordCount = (
+    description.match(new RegExp(`\\b${keyword}\\b`, "gi")) || []
+  ).length;
 
   const { min, max } = Keywords_Limits.description;
 
@@ -125,29 +128,3 @@ export const calculateOverallSeoPercentage = (
 
   return Math.round(totalScore / totalMetrics);
 };
-//  export const calculateOverallSeoPercentage = (
-//   title: string,
-//   description: string
-// ) => {
-//   const calculatePercentage = (text: string, type: "title" | "description") => {
-//     if (!text) return 0;
-
-//     const { min, max } = SEO_LIMITS[type];
-
-//     if (text.length <= min) {
-//       return Math.round((text.length / min) * 100);
-//     } else if (text.length >= max) {
-//       return Math.round(((max - Math.abs(text.length - max)) / max) * 100);
-//     }
-
-//     return 100; // Within optimal range
-//   };
-
-//   const titlePercentage = calculatePercentage(title, "title");
-//   const descriptionPercentage = calculatePercentage(description, "description");
-
-//   // Combine both percentages for an overall score (simple average)
-//   const overallPercentage = Math.round((titlePercentage + descriptionPercentage) / 2);
-
-//   return overallPercentage;
-// };

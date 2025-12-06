@@ -9,7 +9,7 @@ interface OnePageCheckProps {
 }
 
 import { useState } from "react";
-import {  z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -42,8 +42,10 @@ type FormValues = z.infer<typeof formSchema>;
 export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [canonicalLink, setCanonicalLink] = useState("");
+  const [bodyWordCount, setBodyWordCount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const[aiContentLoading, setAiContentLoading] = useState(false);
+  const [aiContentLoading, setAiContentLoading] = useState(false);
   const [error, setError] = useState("");
   const [result, setResult] = useState("");
 
@@ -65,6 +67,8 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
       });
       setTitle(response.data.title);
       setDescription(response.data.description);
+      setCanonicalLink(response.data.canonicalLink);
+      setBodyWordCount(response.data.bodyWordCount);
     } catch (error) {
       console.error(error);
       setError("An error occurred while fetching the data. Please try again.");
@@ -87,7 +91,6 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
       setAiContentLoading(true);
       const keyword = values.keyword;
       const result = await generativeAi(title, description, keyword);
-      console.log("Generated Content:", result);
       setResult(result);
       setAiContentLoading(false);
     } catch (error) {
@@ -144,16 +147,22 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
           <OnePageResult
             title={title}
             description={description}
+            canonicalLink={canonicalLink}
+            bodyWordCount={bodyWordCount}
             result={result}
             setTitle={setTitle}
             setDescription={setDescription}
             keyword={form.getValues().keyword}
             handleGenerate={handleGenerate}
             aiContentLoading={aiContentLoading}
+            showExtras={true}
           />
 
           <div className="mt-5">
-            <Link href={"/manual"} className="text-blue-500 hover:underline text-[16px]">
+            <Link
+              href={"/manual-check"}
+              className="text-blue-500 hover:underline text-[16px]"
+            >
               Don&apos;t Have an URL? Click here to check manually
             </Link>
           </div>

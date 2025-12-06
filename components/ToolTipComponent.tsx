@@ -12,7 +12,7 @@ interface TooltipProps {
 
 export default function ToolTipComponent({ children, text }: TooltipProps) {
   return (
-    <TooltipProvider>
+    <TooltipProvider delayDuration={100}>
       <Tooltip>
         <TooltipTrigger asChild>
           <div className="cursor-pointer ">{children}</div>

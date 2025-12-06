@@ -14,6 +14,8 @@ import { Button } from "./ui/button";
 interface OnePageResultProps {
   title: string;
   description: string;
+  canonicalLink?: string;
+  bodyWordCount?: number;
   result?: string;
   setTitle?: (title: string) => void;
   setDescription?: (description: string) => void;
@@ -23,16 +25,20 @@ interface OnePageResultProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   handleGenerate?: (values: any) => Promise<void>;
   aiContentLoading?: boolean;
+  showExtras?: boolean;
 }
 
 export default function OnePageResult({
   title,
   description,
+  canonicalLink,
+  bodyWordCount,
   result,
   setTitle,
   setDescription,
   keyword,
   showForm = false,
+  showExtras = false,
   handleGenerate,
   aiContentLoading,
 }: OnePageResultProps) {
@@ -146,6 +152,37 @@ export default function OnePageResult({
                   ""
                 )}
               </div>
+              {showExtras && (
+                <div className="flex flex-wrap items-center gap-8 mt-6">
+                  <div className="flex flex-col items-start bg-blue-50 dark:bg-slate-900/40 border border-blue-200 dark:border-slate-800 rounded-xl p-4 min-w-[220px] shadow-sm">
+                    <h3 className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-1 flex items-center gap-2">
+                      <span className="inline-block w-2 h-2 rounded-full bg-blue-400 mr-1"></span>
+                      Canonical Link
+                    </h3>
+                    <p className="text-slate-700 dark:text-slate-200 text-sm truncate font-bold break-all ">
+                      {canonicalLink ? (
+                        canonicalLink
+                      ) : (
+                        <span className="italic text-gray-400">Not found</span>
+                      )}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-col items-start bg-green-50 dark:bg-slate-900/40 border border-green-200 dark:border-slate-800 rounded-xl p-4 min-w-[220px] shadow-sm">
+                    <h3 className="text-sm font-semibold text-green-700 dark:text-green-300 mb-1 flex items-center gap-2">
+                      <span className="inline-block w-2 h-2 rounded-full bg-green-400 mr-1"></span>
+                      Word Count Inside Body
+                    </h3>
+                    <p className="text-slate-700 dark:text-slate-200  font-bold">
+                      {typeof bodyWordCount === "number" ? (
+                        bodyWordCount
+                      ) : (
+                        <span className="italic text-gray-400">N/A</span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="mt-6 space-y-4">
               <Button
