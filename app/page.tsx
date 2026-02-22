@@ -1,14 +1,11 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, CheckCircle2, Zap, Search } from "lucide-react";
+import { ArrowRight, Sparkles, CheckCircle2, Zap, Search, Globe } from "lucide-react";
 
 export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-white dark:bg-slate-950 overflow-hidden selection:bg-blue-100 selection:text-blue-900">
-      <div className="fixed inset-0 -z-10 h-full w-full bg-white dark:bg-slate-950 bg-[linear-gradient(to_right,#f0f0f0_1px,transparent_1px),linear-gradient(to_bottom,#f0f0f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:6rem_4rem]">
-        <div className="absolute bottom-0 left-0 right-0 top-0 bg-[radial-gradient(circle_800px_at_100%_200px,#d5c5ff,transparent)] dark:bg-[radial-gradient(circle_800px_at_100%_200px,#1e293b,transparent)]"></div>
-      </div>
+
 
       <main className="flex-grow">
         <div className="container mx-auto px-4 relative">
@@ -68,15 +65,42 @@ export default function Home() {
             <div className="absolute -inset-y-6 -inset-x-4 bg-slate-50/50 dark:bg-slate-900/50 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative flex flex-col md:flex-row items-center gap-16">
               <div className="w-full md:w-1/2">
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl bg-white dark:bg-slate-950">
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
                   <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-purple-500/10 pointer-events-none mix-blend-overlay" />
-                  <Image
-                    src="/url-check.svg"
-                    alt="URL Check Interface"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto transform transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <div className="w-full aspect-[4/3] bg-slate-50 dark:bg-slate-900 rounded-xl p-4 md:p-6 flex flex-col gap-4 transform transition-transform duration-700 group-hover:scale-105 shadow-inner border border-slate-100 dark:border-slate-800">
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                      <div className="w-3 h-3 rounded-full bg-amber-400"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-400"></div>
+                      <div className="ml-4 flex-1 h-6 bg-white dark:bg-slate-800 rounded-md border border-slate-200 dark:border-slate-700 flex items-center px-2">
+                        <div className="w-3 h-3 text-slate-400 mr-2"><Search className="w-3 h-3" /></div>
+                        <div className="h-1.5 w-1/2 bg-slate-200 dark:bg-slate-600 rounded"></div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-2 gap-4 flex-1">
+                      <div className="col-span-2 bg-white dark:bg-slate-950 rounded-lg p-4 border border-slate-200 dark:border-slate-800 flex flex-col justify-center items-center gap-3 shadow-sm">
+                        <div className="text-5xl font-extrabold text-green-500 tracking-tighter">98<span className="text-3xl">%</span></div>
+                        <div className="h-2 w-32 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                          <div className="h-full w-[98%] bg-green-500 rounded-full"></div>
+                        </div>
+                        <div className="text-sm text-slate-500 font-medium uppercase tracking-wider">SEO Score</div>
+                      </div>
+                      <div className="bg-white dark:bg-slate-950 rounded-lg p-4 border border-slate-200 dark:border-slate-800 flex flex-col gap-3 shadow-sm">
+                        <div className="h-2 w-16 bg-blue-200 dark:bg-blue-900/50 rounded"></div>
+                        <div className="h-4 w-3/4 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                        <div className="flex gap-1 mt-auto">
+                          <div className="h-2 w-2 rounded-full bg-green-500"></div>
+                          <div className="h-2 w-2 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+                        </div>
+                      </div>
+                      <div className="bg-white dark:bg-slate-950 rounded-lg p-4 border border-slate-200 dark:border-slate-800 flex flex-col gap-3 shadow-sm">
+                        <div className="h-2 w-20 bg-purple-200 dark:bg-purple-900/50 rounded"></div>
+                        <div className="h-4 w-full bg-slate-200 dark:bg-slate-700 rounded"></div>
+                        <div className="h-4 w-1/2 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2 space-y-6">
@@ -113,15 +137,39 @@ export default function Home() {
           <div className="group relative">
             <div className="relative flex flex-col md:flex-row-reverse items-center gap-16">
               <div className="w-full md:w-1/2">
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl bg-white dark:bg-slate-950">
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
                   <div className="absolute inset-0 bg-gradient-to-bl from-purple-500/10 to-pink-500/10 pointer-events-none mix-blend-overlay" />
-                  <Image
-                    src="/bulk-check.svg"
-                    alt="Bulk Analysis"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto transform transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <div className="w-full aspect-[4/3] bg-slate-50 dark:bg-slate-900 rounded-xl p-4 md:p-6 flex flex-col gap-3 transform transition-transform duration-700 group-hover:scale-105 shadow-inner border border-slate-100 dark:border-slate-800 overflow-hidden">
+                    <div className="flex justify-between items-center mb-2">
+                      <div className="h-6 w-32 bg-slate-200 dark:bg-slate-700 rounded-md"></div>
+                      <div className="flex gap-2">
+                        <div className="h-6 w-16 bg-blue-100 dark:bg-blue-900/40 rounded-md"></div>
+                        <div className="h-6 w-20 bg-purple-100 dark:bg-purple-900/40 rounded-md"></div>
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-12 gap-2 px-3 py-3 bg-slate-200 dark:bg-slate-800 rounded-t-lg">
+                      <div className="col-span-1 h-3 w-4 bg-slate-300 dark:bg-slate-600 rounded"></div>
+                      <div className="col-span-6 h-3 w-20 bg-slate-300 dark:bg-slate-600 rounded"></div>
+                      <div className="col-span-2 h-3 w-10 bg-slate-300 dark:bg-slate-600 rounded"></div>
+                      <div className="col-span-3 h-3 w-16 bg-slate-300 dark:bg-slate-600 rounded"></div>
+                    </div>
+
+                    {[1, 2, 3, 4, 5].map((i) => (
+                      <div key={`bulk-${i}`} className="grid grid-cols-12 gap-2 px-3 py-3 bg-white dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg items-center shadow-sm">
+                        <div className="col-span-1 flex items-center justify-start">
+                          <div className={`h-4 w-4 rounded-full ${i === 2 ? 'bg-amber-400' : i === 4 ? 'bg-red-400' : 'bg-green-500'}`}></div>
+                        </div>
+                        <div className="col-span-6"><div className="h-2.5 w-3/4 bg-slate-200 dark:bg-slate-700 rounded"></div></div>
+                        <div className="col-span-2"><div className="h-5 w-10 bg-slate-100 dark:bg-slate-800 rounded-full flex items-center justify-center"><div className="h-1.5 w-5 bg-slate-300 dark:bg-slate-600 rounded"></div></div></div>
+                        <div className="col-span-3 flex gap-1 items-center">
+                          <div className="h-1.5 w-1/3 bg-blue-400 rounded-l-full"></div>
+                          <div className={`h-1.5 w-1/3 ${i === 4 ? 'bg-slate-200 dark:bg-slate-700' : 'bg-purple-400'}`}></div>
+                          <div className={`h-1.5 w-1/3 ${i === 2 || i === 4 ? 'bg-slate-200 dark:bg-slate-700' : 'bg-green-400'} rounded-r-full`}></div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2 space-y-6">
@@ -153,15 +201,46 @@ export default function Home() {
             <div className="absolute -inset-y-6 -inset-x-4 bg-slate-50/50 dark:bg-slate-900/50 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             <div className="relative flex flex-col md:flex-row items-center gap-16">
               <div className="w-full md:w-1/2">
-                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-2xl bg-white dark:bg-slate-950">
+                <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-950">
                   <div className="absolute inset-0 bg-gradient-to-tr from-green-500/10 to-teal-500/10 pointer-events-none mix-blend-overlay" />
-                  <Image
-                    src="/manual-check.png"
-                    alt="Manual Entry"
-                    width={800}
-                    height={600}
-                    className="w-full h-auto transform transition-transform duration-700 group-hover:scale-105"
-                  />
+                  <div className="w-full aspect-[4/3] bg-slate-50 dark:bg-slate-900 rounded-xl p-4 md:p-6 flex flex-col gap-6 transform transition-transform duration-700 group-hover:scale-105 shadow-inner border border-slate-100 dark:border-slate-800 relative overflow-hidden">
+                    <div className="space-y-5 w-full md:w-3/4 z-10">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <div className="h-3 w-16 bg-slate-300 dark:bg-slate-600 rounded"></div>
+                          <div className="h-4 w-14 bg-green-100 dark:bg-green-900/40 rounded text-[10px] text-green-700 dark:text-green-400 flex items-center justify-center font-bold">55 / 60</div>
+                        </div>
+                        <div className="h-10 w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-md p-3 flex items-center shadow-sm">
+                          <div className="h-2.5 w-3/4 bg-slate-700 dark:bg-slate-300 rounded"></div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-center">
+                          <div className="h-3 w-24 bg-slate-300 dark:bg-slate-600 rounded"></div>
+                          <div className="h-4 w-16 bg-amber-100 dark:bg-amber-900/40 rounded text-[10px] text-amber-700 dark:text-amber-400 flex items-center justify-center font-bold">150 / 160</div>
+                        </div>
+                        <div className="h-20 w-full bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-700 rounded-md p-3 flex flex-col gap-3 shadow-sm">
+                          <div className="h-2.5 w-full bg-slate-500 dark:bg-slate-400 rounded"></div>
+                          <div className="h-2.5 w-5/6 bg-slate-500 dark:bg-slate-400 rounded"></div>
+                          <div className="h-2.5 w-1/2 bg-slate-500 dark:bg-slate-400 rounded"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="absolute right-[-5%] bottom-[-5%] w-[85%] bg-white dark:bg-slate-950 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-2xl transform rotate-[-3deg] transition-transform duration-500 group-hover:rotate-[-1deg]">
+                      <div className="text-xs text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-2 font-medium">
+                        <div className="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center"><Globe className="w-3 h-3 text-slate-500" /></div>
+                        https://example.com <span className="text-slate-400">&rsaquo;</span> my-awesome-page
+                      </div>
+                      <div className="text-blue-600 dark:text-blue-400 text-xl font-medium hover:underline mb-2 w-full truncate">
+                        This is a Perfect SEO Title Tag - Example
+                      </div>
+                      <div className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+                        Learn how to optimize your website with the best tools available. Improve your search engine rankings and dominate your niche with our advanced validator.
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="w-full md:w-1/2 space-y-6">
@@ -182,32 +261,44 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-4 mb-32">
-          <div className="relative rounded-3xl overflow-hidden bg-slate-900 dark:bg-slate-900 px-6 py-20 text-center shadow-2xl">
-            <div className="absolute top-0 left-0 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-purple-500/30 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-0 right-0 translate-x-1/2 translate-y-1/2 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl"></div>
+          <div className="relative rounded-3xl overflow-hidden bg-white dark:bg-slate-900 px-6 py-20 text-center shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-2xl border border-slate-100 dark:border-slate-800 transition-colors duration-300">
+            {/* Soft background glows for light mode & dark mode */}
+            <div className="absolute top-0 left-0 -translate-x-1/4 -translate-y-1/4 w-96 h-96 bg-purple-200/60 dark:bg-purple-500/20 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen pointer-events-none"></div>
+            <div className="absolute bottom-0 right-0 translate-x-1/4 translate-y-1/4 w-96 h-96 bg-blue-200/60 dark:bg-blue-500/20 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen pointer-events-none"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30rem] h-[30rem] bg-pink-100/60 dark:bg-pink-500/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen pointer-events-none"></div>
 
             <div className="relative z-10 max-w-3xl mx-auto space-y-8">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white backdrop-blur-md border border-white/20">
-                <Sparkles className="h-4 w-4 text-yellow-300" />
-                <span className="text-sm font-medium">Powered by GPT-4</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:shadow-md">
+                <Sparkles className="h-4 w-4 text-indigo-500 dark:text-indigo-400" />
+                <span className="text-sm font-semibold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400">
+                  Powered by Gemini
+                </span>
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
-                Supercharge with AI Insights
+              <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+                Supercharge with <br className="sm:hidden" />
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 dark:from-blue-400 dark:via-indigo-400 dark:to-purple-400 drop-shadow-sm">
+                  AI Insights
+                </span>
               </h2>
 
-              <p className="text-xl text-slate-300 leading-relaxed">
+              <p className="text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto">
                 Don&apos;t just validate—optimize. Let our AI generate
                 high-converting title tags and meta descriptions tailored to
                 your specific keywords.
               </p>
 
-              <Button
-                size="lg"
-                className="h-14 px-8 text-lg bg-white text-slate-900 hover:bg-slate-100 hover:scale-105 transition-all duration-200"
-              >
-                Unlock AI Analysis
-              </Button>
+              <div className="pt-4">
+                <Link href={"/url-check"} prefetch={true}>
+                  <Button
+                    size="lg"
+                    className="rounded-full h-14 px-10 text-lg bg-slate-900 hover:bg-slate-800 text-white dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 group border border-transparent dark:border-slate-200"
+                  >
+                    <Sparkles className="mr-2 h-5 w-5 text-yellow-300 dark:text-indigo-600 group-hover:animate-pulse" />
+                    Unlock AI Analysis
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

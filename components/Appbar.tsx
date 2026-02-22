@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import Link from "next/link";
 import { getServerSession } from "next-auth";
 import { NEXT_AUTH } from "@/lib/auth";
@@ -11,9 +10,8 @@ async function getUser() {
 }
 
 export default async function Appbar() {
-  // const session = await getUser();
   return (
-    <div className="flex justify-between items-center p-5 shadow-sm">
+    <div className="flex justify-between items-center p-7 shadow-sm">
       <Link href="/">
         <h2 className="text-xl text-blue-500 font-semibold">Seo Validator</h2>
       </Link>
@@ -25,7 +23,6 @@ export default async function Appbar() {
         <Link href="/url-check">
           <h2 className="cursor-pointer">URL</h2>
         </Link>
-        {/* <UserMenu session={session} /> */}
       </div>
     </div>
   );
