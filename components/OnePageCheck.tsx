@@ -26,7 +26,8 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, AlertCircle, Search, Link as LinkIcon, Activity } from "lucide-react";
 
-import { calculateOverallSeoPercentage } from "@/lib/helper";
+import { calculateOverallSeoPercentage, analyzeHeadings } from "@/lib/helper";
+import type { HeadingEntry } from "@/lib/helper";
 
 import { RadialChart } from "./RadialChart";
 import OnePageResult from "./OnePageResult";
@@ -44,6 +45,7 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
   const [description, setDescription] = useState("");
   const [canonicalLink, setCanonicalLink] = useState("");
   const [bodyWordCount, setBodyWordCount] = useState(0);
+  const [headings, setHeadings] = useState<HeadingEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [aiContentLoading, setAiContentLoading] = useState(false);
   const [error, setError] = useState("");
@@ -71,6 +73,7 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
       setDescription(response.data.description);
       setCanonicalLink(response.data.canonicalLink);
       setBodyWordCount(response.data.bodyWordCount);
+      setHeadings(response.data.headings || []);
       setHasScanned(true);
     } catch (error) {
       console.error(error);
@@ -84,9 +87,15 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
     ? calculateOverallSeoPercentage(
         title,
         description,
-        form.getValues().keyword
+        form.getValues().keyword,
+        headings.length > 0 ? analyzeHeadings(headings).score : undefined
       )
-    : calculateOverallSeoPercentage(title, description);
+    : calculateOverallSeoPercentage(
+        title,
+        description,
+        undefined,
+        headings.length > 0 ? analyzeHeadings(headings).score : undefined
+      );
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleGenerate = async (values: FormValues) => {
@@ -196,6 +205,7 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
                   description={description}
                   canonicalLink={canonicalLink}
                   bodyWordCount={bodyWordCount}
+                  headings={headings}
                   result={result}
                   setTitle={setTitle}
                   setDescription={setDescription}
@@ -226,7 +236,14 @@ export default function OnePageCheck({ generativeAi }: OnePageCheckProps) {
         <div className="lg:w-[350px] w-full shrink-0 space-y-6">
           <div className="sticky top-24">
             {hasScanned ? (
-              <RadialChart seoPercentage={seopercentage} />
+              <RadialChart
+                seoPercentage={seopercentage}
+                footerDescription={
+                  headings.length > 0
+                    ? "Based on title, description and heading structure"
+                    : undefined
+                }
+              />
             ) : (
               <div className="bg-slate-50 dark:bg-slate-900/50 border border-dashed border-slate-200 dark:border-slate-800 rounded-xl p-8 text-center h-[350px] flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 shadow-sm transition-all duration-500">
                 {loading ? (

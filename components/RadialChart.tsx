@@ -23,7 +23,8 @@ interface RadialChartProps {
   seoPercentage: number;
   showHeader?: boolean;
   showFooter?: boolean;
-  sizeConfig? :boolean
+  sizeConfig? :boolean;
+  footerDescription?: string;
 }
 
 const chartConfig = {
@@ -37,7 +38,8 @@ export function RadialChart({
   seoPercentage,
   showHeader = true,
   showFooter = true,
-  sizeConfig = false
+  sizeConfig = false,
+  footerDescription,
 }: RadialChartProps) {
   const chartData = [
     { name: "seo", value: seoPercentage, fill: "var(--color-seo)" },
@@ -118,7 +120,7 @@ export function RadialChart({
             <TrendingUp className="h-4 w-4" />
           </div>
           <div className="leading-none text-muted-foreground">
-            Based on title and description analysis
+            {footerDescription || "Based on title and description analysis"}
           </div>
         </CardFooter>
       )}

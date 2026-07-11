@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     if (!url || typeof url !== "string") {
       return NextResponse.json(
         { message: "Invalid URL provided" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     if (!response.ok) {
       return NextResponse.json(
         { message: "Failed to fetch the URL" },
-        { status: response.status }
+        { status: response.status },
       );
     }
 
@@ -37,15 +37,23 @@ export async function POST(req: NextRequest) {
       .split(" ")
       .filter((word) => word.length > 0).length;
 
+    const headings: { tag: string; text: string }[] = [];
+    $("h1, h2, h3, h4, h5, h6").each((_, el) => {
+      headings.push({
+        tag: ($(el).prop("tagName") as string).toLowerCase(),
+        text: $(el).text().trim(),
+      });
+    });
+
     return NextResponse.json(
-      { title, description, canonicalLink, bodyWordCount },
-      { status: 200 }
+      { title, description, canonicalLink, bodyWordCount, headings },
+      { status: 200 },
     );
   } catch (error) {
     console.log(error);
     return NextResponse.json(
       { message: "Internal Server Error" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

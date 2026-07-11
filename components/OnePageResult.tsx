@@ -6,9 +6,11 @@ import {
   isTitleSeoFriendly,
   SEO_LIMITS,
 } from "../lib/helper";
+import type { HeadingEntry } from "../lib/helper";
 
 import ToolTipComponent from "./ToolTipComponent";
-import { Keyboard, TicketCheck, TicketX, Sparkles, Globe, Link as LinkIcon, FileText } from "lucide-react";
+import HeadingAnalysis from "./HeadingAnalysis";
+import { Keyboard, TicketCheck, TicketX, Sparkles, Globe, Link as LinkIcon, FileText, Heading } from "lucide-react";
 import { Button } from "./ui/button";
 
 interface OnePageResultProps {
@@ -16,6 +18,7 @@ interface OnePageResultProps {
   description: string;
   canonicalLink?: string;
   bodyWordCount?: number;
+  headings?: HeadingEntry[];
   result?: string;
   setTitle?: (title: string) => void;
   setDescription?: (description: string) => void;
@@ -34,6 +37,7 @@ export default function OnePageResult({
   description = "",
   canonicalLink,
   bodyWordCount,
+  headings,
   result,
   setTitle,
   setDescription,
@@ -262,6 +266,17 @@ export default function OnePageResult({
                   {typeof bodyWordCount === "number" && <span className="text-sm font-medium text-slate-500 dark:text-slate-400 ml-1">words</span>}
                 </p>
               </div>
+            </div>
+          )}
+
+          {/* Heading Analysis */}
+          {showExtras && headings && headings.length > 0 && (
+            <div className="flex flex-col items-start bg-violet-50/50 dark:bg-violet-900/10 border border-violet-100 dark:border-violet-900/30 rounded-xl p-5 shadow-sm">
+              <h3 className="text-sm font-semibold text-violet-800 dark:text-violet-300 mb-4 flex items-center gap-2">
+                <Heading className="w-4 h-4" />
+                Heading Structure Analysis
+              </h3>
+              <HeadingAnalysis headings={headings} />
             </div>
           )}
 
